@@ -32,6 +32,15 @@ export async function readAndSortInput(path: string): Promise<InputPair> {
     return { left, right };
 }
 
+/**
+ * Calculates the total distance between corresponding numbers in two arrays.
+ * For each position, finds the absolute difference between the numbers
+ * and adds it to a running sum.
+ *
+ * @param left - First array of numbers to compare
+ * @param right - Second array of numbers to compare against
+ * @returns The sum of absolute differences between corresponding numbers
+ */
 export function total_distance({ left, right }: InputPair): number {
     let distance = 0;
     for (let i = 0; i < left.length; i++) {
@@ -39,7 +48,16 @@ export function total_distance({ left, right }: InputPair): number {
     }
     return distance;
 }
-
+/**
+ * Calculates a similarity score between two arrays of numbers.
+ * For each number in the left array, if it appears in the right array,
+ * multiply that number by the count of its occurrences in the right array
+ * and add to the total score.
+ *
+ * @param left - First array of numbers to compare
+ * @param right - Second array of numbers to compare against
+ * @returns The total similarity score
+ */
 export function similarity_score({ left, right }: InputPair): number {
     const rightCounts = new Map();
     for (const num of right) {
@@ -56,7 +74,7 @@ export function similarity_score({ left, right }: InputPair): number {
     return similarity;
 }
 
-export async function result() {
+export async function print_result_day_one() {
     const pair = await readAndSortInput("./inputs/day-01.txt");
     const part_one = total_distance(pair);
     const part_two = similarity_score(pair);
@@ -66,5 +84,5 @@ export async function result() {
 }
 
 if (import.meta.main) {
-    result();
+    print_result_day_one();
 }

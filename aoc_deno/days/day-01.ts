@@ -1,19 +1,9 @@
-import { TextLineStream } from "jsr:@std/streams@1.0.8";
+import { readLines } from "./utils.ts";
 
 type InputPair = {
     left: number[];
     right: number[];
 };
-
-// Read lines from a file and return a stream of lines.
-async function readLines(path: string) {
-    const file = await Deno.open(path);
-    const lineStream = file.readable
-        .pipeThrough(new TextDecoderStream())
-        .pipeThrough(new TextLineStream());
-
-    return lineStream;
-}
 
 export async function readAndSortInput(path: string): Promise<InputPair> {
     const lines = await readLines(path);
@@ -48,6 +38,7 @@ export function total_distance({ left, right }: InputPair): number {
     }
     return distance;
 }
+
 /**
  * Calculates a similarity score between two arrays of numbers.
  * For each number in the left array, if it appears in the right array,
